@@ -1,0 +1,115 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "FormatWithTemplate",
+		"version": "1.0.0",
+		"description": "Takes files and formats them according to a given template"
+	},
+	"host": "powerautomate.herokuapp.com",
+	"basePath": "/api",
+	"schemes": ["https"],
+	"securityDefinitions": {
+		"APIKeyHeader": {
+			"type": "apiKey",
+			"in": "header",
+			"name": "Authorization"
+		}
+	},
+	"security": [
+		{
+			"APIKeyHeader": []
+		}
+	],	
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/formats/docx-with-template": {
+			"post": {
+				"summary": "Returns template formated docx",
+				"description": "The API return template formated docx",
+				"operationId": "FormatDocxWithTemplate",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"files": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"content": {
+												"type": "string",
+												"format": "byte"
+											}
+										},
+										"required": ["name", "content"]
+									},
+									"description": "Files to be formatted",
+									"x-ms-summary": "Files to be formatted"
+								},
+								"template": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string"
+										},
+										"content": {
+											"type": "string",
+											"format": "byte"
+										}
+									},
+									"required": ["name", "content"],
+									"description": "Template for formatting",
+									"x-ms-summary": "Template for formatting"
+								}
+							},
+							"required": ["files", "template"]
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "200",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"files": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"content": {
+												"type": "string",
+												"format": "byte"
+											}
+										}
+									}
+								}
+							},
+							"description": "Formatted files",
+							"x-ms-summary": "Formatted files"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {},
+	"parameters": {},
+	"responses": {},
+	"tags": []
+}
